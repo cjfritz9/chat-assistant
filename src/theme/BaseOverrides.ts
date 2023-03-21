@@ -1,15 +1,34 @@
-import { defineStyleConfig } from '@chakra-ui/react';
+import { defineStyle, defineStyleConfig } from '@chakra-ui/react';
 
-const containerBase = {
+const containerBase = defineStyle({
   display: 'flex',
-  flexDir: 'column',
+  flexDir: 'row',
   minW: '100dvw',
   m: '0',
-  pt: ['1rem', '3rem'],
-  px: ['1rem', '2rem', '3rem', '4rem', '6rem', '8rem'],
-  pb: '5rem'
-};
+  p: '0'
+});
+
+const linkBase = defineStyle({
+  textAlign: 'center',
+  fontSize: ['14px', '16px'],
+  color: 'Brand.AppleGreen.Reg',
+  textTransform: 'uppercase',
+  fontFamily: 'Montserrat, sans-serif'
+});
+
+const newChat = defineStyle({
+  textAlign: 'center',
+  fontSize: ['14px', '16px'],
+  color: 'white',
+  textTransform: 'none',
+  fontFamily: 'Montserrat, sans-serif'
+})
 
 export const mainContainer = defineStyleConfig({
-  variants: { containerBase }
+  baseStyle: containerBase
+});
+
+export const mainLink = defineStyleConfig({
+  baseStyle: linkBase,
+  variants: { newChat }
 });
