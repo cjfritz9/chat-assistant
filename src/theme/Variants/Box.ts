@@ -1,6 +1,6 @@
-import { defineStyle, defineStyleConfig } from '@chakra-ui/react';
+import { defineStyle } from '@chakra-ui/react';
 
-const sentMessage = defineStyle({
+export const sentMessage = defineStyle({
   w: '100%',
   mt: ['1rem', '2rem', '3rem'],
   pb: '6rem',
@@ -12,7 +12,7 @@ const sentMessage = defineStyle({
   textShadow: '0 0 10px #FFFFFF25'
 });
 
-const replyMessage = defineStyle({
+export const replyMessage = defineStyle({
   w: '100%',
   mt: ['1rem', '2rem', '3rem'],
   pb: '6rem',
@@ -22,8 +22,4 @@ const replyMessage = defineStyle({
   fontFamily: 'Poppins',
   textAlign: ['center', 'center', 'left'],
   textShadow: '0 0 10px #FFFFFF25'
-});
-
-export const messageVariants = defineStyleConfig({
-  variants: { sentMessage, replyMessage }
 });

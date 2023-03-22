@@ -1,12 +1,14 @@
 import React from 'react'
-import { Container }  from '@chakra-ui/react'
+import { Flex }  from '@chakra-ui/react'
 import SideBar from '../chat/SideBar';
+import ChatWindow from '../chat/ChatWindow';
 
 const Chat: React.FC = () => {
   return (
-    <Container>
+    <Flex  w='100%'>
       <SideBar />
-    </Container>
+      <ChatWindow />
+    </Flex>
   );
 }
 
