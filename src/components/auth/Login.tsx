@@ -44,7 +44,9 @@ const Login: React.FC<LoginRegisterProps> = ({ setFormState }) => {
       return setError(validationResponse);
     }
     const response = await loginUser(formData);
-    if (await response) {
+    console.log('res1', response);
+
+    if (response) {
       if (typeof response !== 'string') {
         if (response.email === formData.email) {
           setUserInfo(response);
@@ -52,20 +54,18 @@ const Login: React.FC<LoginRegisterProps> = ({ setFormState }) => {
           handleSuccess();
         }
       }
-      if (response.includes('Error')) {
-        console.log('here?');
+      if (response.error) {
         setIsFetching(false);
-        setError(response);
+        setError(response.error.slice(7));
       }
     }
-    console.log(response);
   };
 
   return (
     <Container w='100%' h='100%' justifyContent='center' alignItems='center'>
       <Stack
         opacity={isLoading ? '0' : '1'}
-        transition='opacity .5s ease-out'
+        transition='opacity .75s ease-out'
         boxShadow='0 0 5px #38A3A5'
         py='4rem'
         px='3rem'

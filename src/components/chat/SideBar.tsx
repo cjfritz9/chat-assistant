@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Container,
   Divider,
@@ -15,8 +15,11 @@ import {
   TbBrandWechat
 } from 'react-icons/tb';
 import { CgProfile } from 'react-icons/cg';
+import { SiteContext } from '../../context/SiteContext';
 
 const SideBar: React.FC = () => {
+  const { userInfo } = useContext<any>(SiteContext)
+
   return (
     <Stack
       bgColor='Brand.Agate.Reg'
@@ -73,7 +76,7 @@ const SideBar: React.FC = () => {
             align='center'
           >
             <Icon mr='1rem' color='Brand.AppleGreen.Reg' as={TbCoins} />
-            <Text>tokens: {10}</Text>
+            <Text>tokens: {userInfo.tokens}</Text>
           </Flex>
           <Flex
             as={Link}

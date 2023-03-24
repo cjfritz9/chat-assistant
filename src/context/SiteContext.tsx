@@ -24,7 +24,7 @@ export class SiteProvider extends React.Component {
   };
 
   setUserInfo = (info: UserInfo) => {
-    this.setState(info);
+    this.setState({userInfo: info});
   };
 
   render() {

@@ -12,7 +12,7 @@ export const registerUser = async (userInputs: UserCredentials) => {
 
     if (response.data.error) {
       console.log(response.data.error);
-      return;
+      return response.data;
     }
     return response.data.user;
   }
@@ -26,7 +26,7 @@ export const loginUser = async (userInputs: UserCredentials) => {
 
     if (response.data.error) {
       console.log(response.data.error);
-      return;
+      return response.data;
     }
     return response.data.user;
   }
@@ -40,7 +40,7 @@ export const fetchUserById = async (userId: number) => {
 
     if (response.data.error) {
       console.log(response.data.error);
-      return;
+      return response.data;
     }
     return response.data.user;
   }
@@ -54,7 +54,7 @@ export const fetchTokensByUserId = async (userId: number) => {
 
     if (response.data.error) {
       console.log(response.data.error);
-      return;
+      return response.data;
     }
     return response.data.availableTokens;
   }
@@ -72,7 +72,7 @@ export const removeTokensByUserId = async (userId: number, amount = 1) => {
 
     if (response.data.error) {
       console.log(response.data.error);
-      return;
+      return response.data;
     }
     return response.data.remainingTokens;
   }
@@ -82,11 +82,11 @@ const refreshTokensByUserId = async (userId: number) => {
   if (!userId) {
     return { error: 'Invalid ID Provided' };
   } else {
-    const response = await axios.post(`${BASE_URL}/tokens/add`, {userId});
+    const response = await axios.post(`${BASE_URL}/tokens/add`, { userId });
 
     if (response.data.error) {
       console.log(response.data.error);
-      return;
+      return response.data;
     }
     return response.data.remainingTokens;
   }
