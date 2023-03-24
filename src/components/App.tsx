@@ -5,7 +5,14 @@ import LoginRegister from './pages/LoginRegister';
 
 const App: React.FC = () => {
   return (
-    <Stack className='App' minW='100dvw' maxW='100dvw' h='100dvh' bgColor='Brand.Agate.99'>
+    <Stack
+      className='App'
+      minW='100dvw'
+      maxW='100dvw'
+      minH='100dvh'
+      maxH='100dvh'
+      bgColor='Brand.Agate.99'
+    >
       <Routes>
         <Route path='/' element={<LoginRegister />} />
         <Route path='/login' element={<LoginRegister />} />

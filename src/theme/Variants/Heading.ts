@@ -6,3 +6,10 @@ export const chatHeading = defineStyle({
   fontFamily: 'Montserrat, sans-serif',
   textAlign: 'center'
 });
+
+export const authHeading = defineStyle({
+  size: '48px',
+  color: 'white',
+  fontFamily: 'Inter, sans-serif',
+  textAlign: 'center'
+});

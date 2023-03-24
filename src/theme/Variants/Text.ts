@@ -15,3 +15,11 @@ export const newChatLabel = defineStyle({
   textTransform: 'none',
   fontFamily: 'Inter, sans-serif'
 })
+
+export const authLabel = defineStyle({
+  textAlign: 'left',
+  fontSize: ['14px', '14px'],
+  color: '#EEE',
+  textTransform: 'none',
+  fontFamily: 'Inter, sans-serif'
+})

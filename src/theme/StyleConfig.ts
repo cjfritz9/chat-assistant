@@ -2,9 +2,9 @@ import { defineStyle, defineStyleConfig } from '@chakra-ui/react';
 import { createMultiStyleConfigHelpers } from '@chakra-ui/react';
 import { newChat, chatHistory } from './Variants/Link';
 import { sentMessage, replyMessage } from './Variants/Box';
-import { sidebarText, newChatLabel } from './Variants/Text';
+import { sidebarText, newChatLabel, authLabel } from './Variants/Text';
 import { chatWindow } from './Variants/Container';
-import { chatHeading } from './Variants/Heading';
+import { chatHeading, authHeading } from './Variants/Heading';
 import { inputAnatomy } from '@chakra-ui/anatomy';
 
 const { definePartsStyle, defineMultiStyleConfig } =
@@ -65,7 +65,7 @@ export const container = defineStyleConfig({
 });
 
 export const heading = defineStyleConfig({
-  variants: { chatHeading }
+  variants: { chatHeading, authHeading }
 });
 
 export const input = defineMultiStyleConfig({
@@ -78,5 +78,5 @@ export const link = defineStyleConfig({
 });
 
 export const text = defineStyleConfig({
-  variants: { sidebarText, newChatLabel }
+  variants: { sidebarText, newChatLabel, authLabel }
 });
