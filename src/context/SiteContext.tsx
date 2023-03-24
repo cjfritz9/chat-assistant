@@ -1,10 +1,12 @@
 import React from 'react';
-export const ShopContext = React.createContext({});
+import { UserInfo } from '../models/interfaces';
+export const SiteContext = React.createContext({});
 
 export class SiteProvider extends React.Component {
   state = {
     isLoggedIn: false,
-    isLoading: false
+    isLoading: false,
+    userInfo: {}
   };
 
   componentDidMount() {
@@ -13,22 +15,37 @@ export class SiteProvider extends React.Component {
     }
   }
 
+  setIsLoggedIn = (bool: boolean) => {
+    this.setState({ isLoggedIn: bool });
+  };
+
+  setIsLoading = (bool: boolean) => {
+    this.setState({ isLoading: bool });
+  };
+
+  setUserInfo = (info: UserInfo) => {
+    this.setState(info);
+  };
+
   render() {
     return (
-      <ShopContext.Provider
+      <SiteContext.Provider
         value={{
-          ...this.state
+          ...this.state,
+          setIsLoggedIn: this.setIsLoggedIn,
+          setIsLoading: this.setIsLoading,
+          setUserInfo: this.setUserInfo
         }}
       >
         {
           //@ts-ignore
           this.props.children
         }
-      </ShopContext.Provider>
+      </SiteContext.Provider>
     );
   }
 }
 
-export const ShopConsumer = ShopContext.Consumer;
+export const ShopConsumer = SiteContext.Consumer;
 
 export default SiteProvider;
