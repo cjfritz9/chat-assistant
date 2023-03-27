@@ -43,7 +43,7 @@ const SideBar: React.FC = () => {
           align='center'
         >
           <Icon mr='1rem' color='white' as={TbBrandHipchat} />
-          <Text>New Chat</Text>
+          <Text>New Request</Text>
         </Flex>
         <Divider mb='1.5rem' w='90%' />
         <Text variant='sidebarText'>History</Text>

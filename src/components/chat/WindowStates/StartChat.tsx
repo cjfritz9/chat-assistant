@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import {
   Button,
   Flex,
@@ -8,13 +8,22 @@ import {
   Text,
   Textarea
 } from '@chakra-ui/react';
+import { SiteContext } from '../../../context/SiteContext';
 
 const StartChat: React.FC = () => {
+  const [request, setRequest] = useState({ role: '', request: '' })
+
+  const {  } = useContext<any>(SiteContext);
+  
+  const handleSubmit = () => {
+
+  }
+
   return (
     <Stack w='640px' h='100%' align='center'>
-      <Heading textAlign='left' variant='chatHeading'>New Chat</Heading>
+      <Heading textAlign='left' variant='chatHeading'>New Request</Heading>
       <Stack pt='2rem' align='center' gap='2rem'>
-        <Flex w='100%' align='center' justify='space-between' gap='1.5rem'>
+        <Stack w='100%' align='flex-start' justify='space-between' gap='.5rem'>
           <Text whiteSpace='nowrap' variant='newChatLabel'>
             Assistant's Role:
           </Text>
@@ -23,8 +32,8 @@ const StartChat: React.FC = () => {
             w='480px'
             placeholder="ex. 'You are a virtual assitant that speaks like a pirate'"
           />
-        </Flex>
-        <Flex w='100%' align='flex-start' justify='space-between' gap='1.5rem'>
+        </Stack>
+        <Stack w='100%' align='flex-start' justify='space-between' gap='.5rem'>
           <Text whiteSpace='nowrap' variant='newChatLabel'>
             Request:
           </Text>
@@ -42,9 +51,9 @@ const StartChat: React.FC = () => {
             w='480px'
             placeholder="ex. 'Explain quantum computing in simple terms"
           />
-        </Flex>
-        <Flex w='100%' justify='flex-end'>
-          <Button>Send</Button>
+        </Stack>
+        <Flex w='100%' justify='center'>
+          <Button w='10rem'>Send</Button>
         </Flex>
       </Stack>
     </Stack>

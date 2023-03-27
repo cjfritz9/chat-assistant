@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { UserCredentials } from '../models/interfaces';
 
-// const BASE_URL = 'http://localhost:8080/api/chat-app';
-const BASE_URL = 'https://open-ai-server.uc.r.appspot.com/api/chat-app';
+const BASE_URL = 'http://localhost:8080/api/chat-app';
+// const BASE_URL = 'https://open-ai-server.uc.r.appspot.com/api/chat-app';
 
 export const registerUser = async (userInputs: UserCredentials) => {
   if (!userInputs.email || !userInputs.password) {
