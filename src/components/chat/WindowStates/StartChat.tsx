@@ -29,12 +29,8 @@ const StartChat: React.FC = () => {
     if (response.data.success) {
       console.log('res', response)
       setCurrentResponse(response.data.success);
-    }
-    console.log('convo submit', currentPrompt, currentResponse);
-    
+    }   
   };
-
-  console.log('convo comp', currentPrompt, currentResponse);
 
   return (
     <Stack w='640px' h='100%' align='center'>
