@@ -1,9 +1,11 @@
 import axios from 'axios';
 import { UserCredentials } from '../models/interfaces';
+import { ChatRequest } from '../models/types';
 
 const BASE_URL = 'http://localhost:8080/api/chat-app';
 // const BASE_URL = 'https://open-ai-server.uc.r.appspot.com/api/chat-app';
 
+// USER FUNCTIONS
 export const registerUser = async (userInputs: UserCredentials) => {
   if (!userInputs.email || !userInputs.password) {
     return { error: 'Missing email or password' };
@@ -78,7 +80,7 @@ export const removeTokensByUserId = async (userId: number, amount = 1) => {
   }
 };
 
-const refreshTokensByUserId = async (userId: number) => {
+export const refreshTokensByUserId = async (userId: number) => {
   if (!userId) {
     return { error: 'Invalid ID Provided' };
   } else {
@@ -88,6 +90,22 @@ const refreshTokensByUserId = async (userId: number) => {
       console.log(response.data.error);
       return response.data;
     }
-    return response.data.remainingTokens;
+    return response.data;
+  }
+};
+
+// CHAT REQUEST FUNCTIONS
+
+export const createChatRequest = async (request: ChatRequest) => {
+  if (!request[1]) {
+    return { error: 'Invalid Request, Try Again' };
+  } else {
+    const response: any = await axios.post(
+      `${BASE_URL}/messages/send`,
+      request
+    );
+    console.log(response);
+    if (!response) return 'Unknown Error, Try Again';
+    return response;
   }
 };

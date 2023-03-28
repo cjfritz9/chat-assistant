@@ -7,10 +7,8 @@ export class SiteProvider extends React.Component {
     isLoggedIn: false,
     isLoading: false,
     userInfo: {},
-    currentConversation: {
-      prompt: { role: '', request: '' },
-      response: ''
-    }
+    currentPrompt: { role: '', request: '' },
+    currentResponse: ''
   };
 
   componentDidMount() {
@@ -33,29 +31,23 @@ export class SiteProvider extends React.Component {
 
   setCurrentRequest = (role: string, request: string) => {
     this.setState({
-      currentConversation: {
-        prompt: {
-          role,
-          request
-        }
+      currentPrompt: {
+        role,
+        request
       }
     });
   };
 
   setCurrentResponse = (response: string) => {
     this.setState({
-      currentConversation: {
-        response
-      }
+      currentResponse: response
     });
   };
 
   clearCurrentConversation = () => {
     this.setState({
-      currentConversation: {
-        prompt: { role: '', request: '' },
-        response: ''
-      }
+      currentPrompt: { role: '', request: '' },
+      currentResponse: ''
     });
   };
 

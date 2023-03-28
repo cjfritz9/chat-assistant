@@ -1,10 +1,11 @@
-import React, { useContext, useState } from 'react';
+import React, { KeyboardEvent, useContext, useState } from 'react';
 import {
   Button,
   Container,
   Flex,
   Heading,
   Input,
+  Spinner,
   Stack,
   Text
 } from '@chakra-ui/react';
@@ -12,6 +13,7 @@ import { validateRegistrationInputs } from '../../utils/helpers';
 import { registerUser } from '../../api';
 import { LoginRegisterProps } from '../../models/props';
 import { SiteContext } from '../../context/SiteContext';
+import { useNavigate } from 'react-router-dom';
 
 const Register: React.FC<LoginRegisterProps> = ({ setFormState }) => {
   const [formData, setFormData] = useState({
@@ -19,8 +21,27 @@ const Register: React.FC<LoginRegisterProps> = ({ setFormState }) => {
     password: '',
     confirmPass: ''
   });
+  const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
-  const { setIsLoggedIn, setUserInfo } = useContext<any>(SiteContext);
+  const [isFetching, setIsFetching] = useState(false);
+  const { isLoading, setIsLoading, setIsLoggedIn, setUserInfo } =
+    useContext<any>(SiteContext);
+  const navigate = useNavigate();
+
+  const handleSuccess = () => {
+    setSuccess(true);
+    setIsLoading(true);
+    setTimeout(() => {
+      navigate('/chat');
+      setIsLoading(false);
+    }, 1000);
+  };
+
+  const enterSubmit = (e: KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleSubmit();
+    }
+  };
 
   const handleSubmit = async () => {
     const validationResponse = validateRegistrationInputs(
@@ -35,13 +56,28 @@ const Register: React.FC<LoginRegisterProps> = ({ setFormState }) => {
       email: formData.email,
       password: formData.password
     });
-    console.log(response);
+
+    if (response) {
+      if (typeof response !== 'string') {
+        if (response.email === formData.email) {
+          setUserInfo(response);
+          setIsLoggedIn(true);
+          handleSuccess();
+        }
+      }
+      if (response.error) {
+        setIsFetching(false);
+        setError(response.error.slice(7));
+      }
+    }
   };
 
   return (
     <Container>
       <Container w='100%' h='100%' justifyContent='center' alignItems='center'>
         <Stack
+          opacity={isLoading ? '0' : '1'}
+          transition='opacity .75s ease-out'
           boxShadow='0 0 5px #38A3A5'
           py='4rem'
           px='3rem'
@@ -87,6 +123,7 @@ const Register: React.FC<LoginRegisterProps> = ({ setFormState }) => {
                     confirmPass: e.target.value
                   }))
                 }
+                onKeyDown={(e: KeyboardEvent) => enterSubmit(e)}
               />
             </Stack>
             <Stack w='75%' align='center' gap='.75rem'></Stack>
@@ -97,7 +134,15 @@ const Register: React.FC<LoginRegisterProps> = ({ setFormState }) => {
               color={error.length ? 'red' : 'Brand.Agate.Reg'}
               onClick={handleSubmit}
             >
-              {error.length ? error : 'Submit'}
+              {success ? (
+                'Registration Successful'
+              ) : error.length ? (
+                error
+              ) : isFetching ? (
+                <Spinner />
+              ) : (
+                'Submit'
+              )}
             </Button>
             <Flex gap='4px' color='#EEE'>
               <Text>Have an account?</Text>

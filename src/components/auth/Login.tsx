@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { KeyboardEvent, useContext, useState } from 'react';
 import {
   Button,
   Container,
@@ -32,6 +32,12 @@ const Login: React.FC<LoginRegisterProps> = ({ setFormState }) => {
       setIsLoading(false);
     }, 1000);
   };
+
+  const enterSubmit = (e: KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      handleSubmit()
+    }
+  }
 
   const handleSubmit = async () => {
     setIsFetching(true);
@@ -97,6 +103,7 @@ const Login: React.FC<LoginRegisterProps> = ({ setFormState }) => {
               onChange={(e) =>
                 setFormData((prev) => ({ ...prev, password: e.target.value }))
               }
+              onKeyDown={(e) => enterSubmit(e)}
             />
           </Stack>
           <Stack w='75%' align='center' gap='.75rem'></Stack>

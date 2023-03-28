@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   Container,
   Divider,
@@ -16,9 +16,23 @@ import {
 } from 'react-icons/tb';
 import { CgProfile } from 'react-icons/cg';
 import { SiteContext } from '../../context/SiteContext';
+import { useNavigate } from 'react-router-dom';
+import { refreshTokensByUserId } from '../../api';
 
 const SideBar: React.FC = () => {
-  const { userInfo } = useContext<any>(SiteContext)
+  const { userInfo } = useContext<any>(SiteContext);
+  const [tokenError, setTokenError] = useState('');
+
+  const attemptTokenRefresh = async () => {
+    const response = await refreshTokensByUserId(userInfo.id);
+    if (response.error) {
+      setTokenError('Try Again Tomorrow');
+      setTimeout(() => {
+        setTokenError('');
+      }, 2500);
+    }
+    console.log(response);
+  };
 
   return (
     <Stack
@@ -75,8 +89,8 @@ const SideBar: React.FC = () => {
             w='100%'
             align='center'
           >
-            <Icon mr='1rem' color='Brand.AppleGreen.Reg' as={TbCoins} />
-            <Text>tokens: {userInfo.tokens}</Text>
+            <Icon mr='1rem' color='Brand.AppleGreen.Reg' as={CgProfile} />
+            <Text textTransform='none'>{userInfo.email}</Text>
           </Flex>
           <Flex
             as={Link}
@@ -87,9 +101,14 @@ const SideBar: React.FC = () => {
             justify='flex-start'
             w='100%'
             align='center'
+            onClick={attemptTokenRefresh}
           >
-            <Icon mr='1rem' color='Brand.AppleGreen.Reg' as={CgProfile} />
-            <Text>account </Text>
+            <Icon mr='1rem' color='Brand.AppleGreen.Reg' as={TbCoins} />
+            {tokenError.length ? (
+              <Text>{tokenError}</Text>
+            ) : (
+              <Text>tokens: {userInfo.tokens}</Text>
+            )}
           </Flex>
           <Flex
             as={Link}
