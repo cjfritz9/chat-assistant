@@ -18,8 +18,9 @@ import { CgProfile } from 'react-icons/cg';
 import { SiteContext } from '../../context/SiteContext';
 import { useNavigate } from 'react-router-dom';
 import { refreshTokensByUserId } from '../../api';
+import { ChatWindowProps } from '../../models/props';
 
-const SideBar: React.FC = () => {
+const SideBar: React.FC<ChatWindowProps> = ({ setWindowState}) => {
   const { userInfo } = useContext<any>(SiteContext);
   const [tokenError, setTokenError] = useState('');
 
@@ -31,7 +32,6 @@ const SideBar: React.FC = () => {
         setTokenError('');
       }, 2500);
     }
-    console.log(response);
   };
 
   return (
@@ -55,6 +55,7 @@ const SideBar: React.FC = () => {
           justify='flex-start'
           w='90%'
           align='center'
+          onClick={() => setWindowState('start chat')}
         >
           <Icon mr='1rem' color='white' as={TbBrandHipchat} />
           <Text>New Request</Text>

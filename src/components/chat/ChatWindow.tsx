@@ -3,18 +3,16 @@ import { Stack } from '@chakra-ui/react';
 import { ChatState } from '../../models/types';
 import StartChat from './WindowStates/StartChat';
 import Conversation from './WindowStates/Conversation';
+import { ChatWindowProps } from '../../models/props';
 
-const ChatWindow: React.FC = () => {
-  const [windowState, setWindowState] = useState<ChatState>('start chat');
-
+const ChatWindow: React.FC<ChatWindowProps> = ({
+  setWindowState,
+  windowState
+}) => {
   return (
-    <Stack
-      flexGrow='1'
-      p='4rem'
-      align='center'
-    >
+    <Stack flexGrow='1' p='4rem' align='center' minW='0'>
       {windowState === 'start chat' ? (
-        <StartChat />
+        <StartChat setWindowState={setWindowState} />
       ) : windowState === 'conversation' ? (
         <Conversation />
       ) : null}

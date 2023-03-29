@@ -4,7 +4,6 @@ import * as Theme from './StyleConfig';
 const theme = extendTheme({
   components: {
     // TODO: Default component themes go here
-    Box: Theme.box,
     Button: Theme.button,
     Container: Theme.container,
     Heading: Theme.heading,

@@ -1,9 +1,8 @@
 import { defineStyle, defineStyleConfig } from '@chakra-ui/react';
 import { createMultiStyleConfigHelpers } from '@chakra-ui/react';
 import { newChat, chatHistory } from './Variants/Link';
-import { sentMessage, replyMessage } from './Variants/Box';
 import { sidebarText, newChatLabel, authLabel } from './Variants/Text';
-import { chatWindow } from './Variants/Container';
+import { chatWindow, sentMessage, replyMessage } from './Variants/Container';
 import { chatHeading, authHeading } from './Variants/Heading';
 import { inputAnatomy } from '@chakra-ui/anatomy';
 
@@ -11,9 +10,7 @@ const { definePartsStyle, defineMultiStyleConfig } =
   createMultiStyleConfigHelpers(inputAnatomy.keys);
 
 const buttonBase = defineStyle({
-  _hover: {
-    
-  },
+  _hover: {},
   fontFamily: 'Inter, sans-serif',
   bgColor: 'Brand.Willow.Reg !important',
   color: 'Brand.Agate.Reg',
@@ -51,17 +48,13 @@ const inputBase = definePartsStyle({
   }
 });
 
-export const box = defineStyleConfig({
-  variants: { sentMessage, replyMessage }
-});
-
 export const button = defineStyleConfig({
   baseStyle: buttonBase
 });
 
 export const container = defineStyleConfig({
   baseStyle: containerBase,
-  variants: { chatWindow }
+  variants: { chatWindow, sentMessage, replyMessage }
 });
 
 export const heading = defineStyleConfig({

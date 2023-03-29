@@ -50,7 +50,6 @@ const Login: React.FC<LoginRegisterProps> = ({ setFormState }) => {
       return setError(validationResponse);
     }
     const response = await loginUser(formData);
-    console.log('res1', response);
 
     if (response) {
       if (typeof response !== 'string') {

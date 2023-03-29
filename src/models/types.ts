@@ -6,3 +6,4 @@ export type ChatRequest = [
   { role: Roles; content: string },
   { role: 'user'; content: string }
 ];
+

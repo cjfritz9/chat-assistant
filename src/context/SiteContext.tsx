@@ -7,7 +7,8 @@ export class SiteProvider extends React.Component {
     isLoggedIn: false,
     isLoading: false,
     userInfo: {},
-    currentPrompt: { role: '', request: '' },
+    isResponseLoading: false,
+    currentPrompt: '',
     currentResponse: ''
   };
 
@@ -29,12 +30,13 @@ export class SiteProvider extends React.Component {
     this.setState({ userInfo: info });
   };
 
-  setCurrentRequest = (role: string, request: string) => {
+  setIsResponseLoading = (bool: boolean) => {
+    this.setState({ isResponseLoading: bool });
+  };
+
+  setCurrentRequest = (request: string) => {
     this.setState({
-      currentPrompt: {
-        role,
-        request
-      }
+      currentPrompt: request
     });
   };
 
@@ -46,7 +48,7 @@ export class SiteProvider extends React.Component {
 
   clearCurrentConversation = () => {
     this.setState({
-      currentPrompt: { role: '', request: '' },
+      currentPrompt: '',
       currentResponse: ''
     });
   };
@@ -59,6 +61,7 @@ export class SiteProvider extends React.Component {
           setIsLoggedIn: this.setIsLoggedIn,
           setIsLoading: this.setIsLoading,
           setUserInfo: this.setUserInfo,
+          setIsResponseLoading: this.setIsResponseLoading,
           setCurrentRequest: this.setCurrentRequest,
           setCurrentResponse: this.setCurrentResponse,
           clearCurrentConversation: this.clearCurrentConversation

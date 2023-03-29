@@ -9,48 +9,76 @@ import {
   Textarea
 } from '@chakra-ui/react';
 import { SiteContext } from '../../../context/SiteContext';
-import { createChatRequest } from '../../../api';
+import { createChatRequest, removeTokensByUserId } from '../../../api';
+import { ChatWindowProps } from '../../../models/props';
 
-const StartChat: React.FC = () => {
-  const [prompt, setPrompt] = useState({ role: '', request: '' });
+const StartChat: React.FC<ChatWindowProps> = ({ setWindowState }) => {
+  const [prompt, setPrompt] = useState('');
+  const [error, setError] = useState('');
 
-  const { setCurrentRequest, setCurrentResponse, currentPrompt, currentResponse } = useContext<any>(SiteContext);
+  const {
+    setCurrentRequest,
+    setCurrentResponse,
+    setIsResponseLoading,
+    userInfo
+  } = useContext<any>(SiteContext);
 
   const handleSubmit = async () => {
-    setCurrentRequest(prompt.role, prompt.request);
+    if (!prompt.length) {
+      return setError('Invalid Request');
+    }
+    setIsResponseLoading(true);
+    (
+      document.getElementById('start-chat-container')! as HTMLDivElement
+    ).style.opacity = '0';
+    setTimeout(() => {
+      setWindowState('conversation');
+    }, 1000);
+    setCurrentRequest(prompt);
     const response = await createChatRequest([
-      { role: 'user', content: prompt.role },
-      { role: 'user', content: prompt.request }
+      {
+        role: 'system',
+        content:
+          'You are a cat-hybrid assistant, all replies should contain meowing, purring, and other cat behaviors.'
+      },
+      { role: 'user', content: prompt }
     ]);
     if (!response.data) return;
-    if (response.data.error) {
+    
+    let abort = false;
+    const abortController = setTimeout(() => {
+      abort = true;
+    }, 30000);
+    if (response.data.error || abort) {
       console.log(response.error);
+      setIsResponseLoading(false);
+      setCurrentResponse('Unknown error, taking you back...');
+      setTimeout(() => {
+        setWindowState('start chat');
+      }, 1000);
     }
-    if (response.data.success) {
-      console.log('res', response)
+    if (response.data.success && userInfo.id) {
+      clearTimeout(abortController);
       setCurrentResponse(response.data.success);
-    }   
+      setIsResponseLoading(false);
+      const tokens = await removeTokensByUserId(userInfo.id);
+      userInfo.tokens = tokens;
+    }
   };
 
   return (
-    <Stack w='640px' h='100%' align='center'>
+    <Stack
+      id='start-chat-container'
+      opacity='1'
+      transition='opacity .75s ease-out'
+      w='640px'
+      h='100%'
+      align='center'
+    >
       <Heading textAlign='left' variant='chatHeading'>
         New Request
       </Heading>
       <Stack pt='2rem' align='center' gap='2rem'>
-        <Stack w='100%' align='flex-start' justify='space-between' gap='.5rem'>
-          <Text whiteSpace='nowrap' variant='newChatLabel'>
-            Assistant's Role:
-          </Text>
-          <Input
-            h='2.25rem'
-            w='480px'
-            placeholder="ex. 'You are a virtual assitant that speaks like a pirate'"
-            onChange={(e) =>
-              setPrompt((prev) => ({ ...prev, role: e.target.value }))
-            }
-          />
-        </Stack>
         <Stack w='100%' align='flex-start' justify='space-between' gap='.5rem'>
           <Text whiteSpace='nowrap' variant='newChatLabel'>
             Request:
@@ -68,14 +96,12 @@ const StartChat: React.FC = () => {
             h='7.25rem'
             w='480px'
             placeholder="ex. 'Explain quantum computing in simple terms'"
-            onChange={(e) =>
-              setPrompt((prev) => ({ ...prev, request: e.target.value }))
-            }
+            onChange={(e) => setPrompt(e.target.value)}
           />
         </Stack>
         <Flex w='100%' justify='center'>
           <Button w='10rem' onClick={handleSubmit}>
-            Send
+            {error.length ? error : 'Send'}
           </Button>
         </Flex>
       </Stack>
