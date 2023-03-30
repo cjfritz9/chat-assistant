@@ -222,9 +222,29 @@ const SideBar: React.FC<ChatWindowProps> = ({ setWindowState }) => {
                 justify='flex-start'
                 w='100%'
                 align='center'
+                fontSize='20px'
+                onClick={
+                  !showLogoutConfirmation
+                    ? () => setShowLogoutConfirmation(true)
+                    : undefined
+                }
               >
                 <Icon mr='1rem' color='Brand.AppleGreen.Reg' as={CgProfile} />
-                <Text textTransform='none'>{userInfo.email}</Text>
+                {showLogoutConfirmation ? (
+                  <Flex w='100%' justifyContent='space-between'>
+                    <Text>Log Out?</Text>
+                    <Flex>
+                      <Text mr='1rem' onClick={handleLogout}>
+                        Yes
+                      </Text>
+                      <Text onClick={() => setShowLogoutConfirmation(false)}>
+                        No
+                      </Text>
+                    </Flex>
+                  </Flex>
+                ) : (
+                  userInfo.email
+                )}
               </Flex>
               <Flex
                 as={Link}

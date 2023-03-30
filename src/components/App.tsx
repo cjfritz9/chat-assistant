@@ -11,7 +11,6 @@ const App: React.FC = () => {
       maxW='100dvw'
       minH='100dvh'
       maxH='100dvh'
-      overflowX='scroll'
       bgColor='Brand.Agate.99'
     >
       <Routes>

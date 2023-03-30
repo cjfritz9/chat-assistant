@@ -74,7 +74,6 @@ const StartChat: React.FC<ChatWindowProps> = ({ setWindowState }) => {
       w={['100%', '640px']}
       h='100%'
       align='center'
-      overflowX='scroll'
     >
       <Heading textAlign='left' variant='chatHeading'>
         New Request
