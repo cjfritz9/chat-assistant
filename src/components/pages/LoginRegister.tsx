@@ -8,7 +8,7 @@ const LoginRegister: React.FC = () => {
   const [formState, setFormState] = useState<'login' | 'register'>('login');
 
   return (
-    <Container w='100dvw' h='100dvh'>
+    <Container w='100dvw' h='100dvh' minH='100dvh' overflowX='scroll'>
       {formState === 'login' ? (
         <Login setFormState={setFormState} />
       ) : (

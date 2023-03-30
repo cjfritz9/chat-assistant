@@ -73,92 +73,91 @@ const Register: React.FC<LoginRegisterProps> = ({ setFormState }) => {
   };
 
   return (
-    <Container>
-      <Container w='100%' h='100%' justifyContent='center' alignItems='center'>
-        <Stack
-          opacity={isLoading ? '0' : '1'}
-          transition='opacity .75s ease-out'
-          boxShadow='0 0 5px #38A3A5'
-          py='4rem'
-          px='3rem'
-          align='center'
-          borderRadius='5px'
-          w='520px'
-          h='fit-content'
-          bgColor='Brand.Malachite.99'
-          gap='2rem'
-        >
-          <Heading variant='authHeading'>Register</Heading>
-          <Stack w='75%' gap='1rem'>
-            <Stack>
-              <Text variant='authLabel'>Email Address</Text>
-              <Input
-                _focus={{ border: '2px solid #DDD', boxShadow: 'none' }}
-                onFocus={() => setError('')}
-                onChange={(e) =>
-                  setFormData((prev) => ({ ...prev, email: e.target.value }))
-                }
-              />
-            </Stack>
-            <Stack>
-              <Text variant='authLabel'>Password</Text>
-              <Input
-                _focus={{ border: '2px solid #DDD', boxShadow: 'none' }}
-                type='password'
-                onFocus={() => setError('')}
-                onChange={(e) =>
-                  setFormData((prev) => ({ ...prev, password: e.target.value }))
-                }
-              />
-            </Stack>
-            <Stack>
-              <Text variant='authLabel'>Confirm Password</Text>
-              <Input
-                _focus={{ border: '2px solid #DDD', boxShadow: 'none' }}
-                type='password'
-                onFocus={() => setError('')}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    confirmPass: e.target.value
-                  }))
-                }
-                onKeyDown={(e: KeyboardEvent) => enterSubmit(e)}
-              />
-            </Stack>
-            <Stack w='75%' align='center' gap='.75rem'></Stack>
-            <Button
-              isDisabled={error.length ? true : false}
-              w='100%'
-              bgColor='#EEE'
-              color={error.length ? 'red' : 'Brand.Agate.Reg'}
-              onClick={handleSubmit}
-            >
-              {success ? (
-                'Registration Successful'
-              ) : error.length ? (
-                error
-              ) : isFetching ? (
-                <Spinner />
-              ) : (
-                'Submit'
-              )}
-            </Button>
-            <Flex gap='4px' color='#EEE'>
-              <Text>Have an account?</Text>
-              <Text
-                _hover={{ color: 'white' }}
-                cursor='pointer'
-                color='#EEE'
-                textDecor='underline'
-                onClick={() => setFormState('login')}
-              >
-                Log in.
-              </Text>
-            </Flex>
+    <Container w='100%' h='100%' justifyContent='center' alignItems='center'>
+      <Stack
+        opacity={isLoading ? '0' : '1'}
+        transition='opacity .75s ease-out'
+        boxShadow='0 0 5px #38A3A5'
+        py='4rem'
+        px={['0rem', '3rem']}
+        align='center'
+        borderRadius='5px'
+        w={['100%', '100%', '100%', '520px']}
+        h={['100%', '100%', '100%', 'fit-content']}
+        bgColor='Brand.Malachite.99'
+        gap='2rem'
+        justifyContent={['top', 'center']}
+      >
+        <Heading variant='authHeading'>Register</Heading>
+        <Stack w='75%' gap='1rem'>
+          <Stack>
+            <Text variant='authLabel'>Email Address</Text>
+            <Input
+              _focus={{ border: '2px solid #DDD', boxShadow: 'none' }}
+              onFocus={() => setError('')}
+              onChange={(e) =>
+                setFormData((prev) => ({ ...prev, email: e.target.value }))
+              }
+            />
           </Stack>
+          <Stack>
+            <Text variant='authLabel'>Password</Text>
+            <Input
+              _focus={{ border: '2px solid #DDD', boxShadow: 'none' }}
+              type='password'
+              onFocus={() => setError('')}
+              onChange={(e) =>
+                setFormData((prev) => ({ ...prev, password: e.target.value }))
+              }
+            />
+          </Stack>
+          <Stack>
+            <Text variant='authLabel'>Confirm Password</Text>
+            <Input
+              _focus={{ border: '2px solid #DDD', boxShadow: 'none' }}
+              type='password'
+              onFocus={() => setError('')}
+              onChange={(e) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  confirmPass: e.target.value
+                }))
+              }
+              onKeyDown={(e: KeyboardEvent) => enterSubmit(e)}
+            />
+          </Stack>
+          <Stack w='75%' align='center' gap='.75rem'></Stack>
+          <Button
+            isDisabled={error.length ? true : false}
+            w='100%'
+            bgColor='#EEE'
+            color={error.length ? 'red' : 'Brand.Agate.Reg'}
+            onClick={handleSubmit}
+          >
+            {success ? (
+              'Registration Successful'
+            ) : error.length ? (
+              error
+            ) : isFetching ? (
+              <Spinner />
+            ) : (
+              'Submit'
+            )}
+          </Button>
+          <Flex gap='4px' color='#EEE'>
+            <Text>Have an account?</Text>
+            <Text
+              _hover={{ color: 'white' }}
+              cursor='pointer'
+              color='#EEE'
+              textDecor='underline'
+              onClick={() => setFormState('login')}
+            >
+              Log in.
+            </Text>
+          </Flex>
         </Stack>
-      </Container>
+      </Stack>
     </Container>
   );
 };

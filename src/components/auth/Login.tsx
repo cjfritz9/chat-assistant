@@ -35,9 +35,9 @@ const Login: React.FC<LoginRegisterProps> = ({ setFormState }) => {
 
   const enterSubmit = (e: KeyboardEvent) => {
     if (e.key === 'Enter') {
-      handleSubmit()
+      handleSubmit();
     }
-  }
+  };
 
   const handleSubmit = async () => {
     setIsFetching(true);
@@ -73,13 +73,14 @@ const Login: React.FC<LoginRegisterProps> = ({ setFormState }) => {
         transition='opacity .75s ease-out'
         boxShadow='0 0 5px #38A3A5'
         py='4rem'
-        px='3rem'
+        px={['0rem','3rem']}
         align='center'
         borderRadius='5px'
-        w='520px'
-        h='fit-content'
+        w={['100%', '100%', '100%', '520px']}
+        h={['100%', '100%', '100%', 'fit-content']}
         bgColor='Brand.Malachite.99'
         gap='2rem'
+        justifyContent={['top', 'center']}
       >
         <Heading variant='authHeading'>Login</Heading>
         <Stack w='75%' gap='1rem'>

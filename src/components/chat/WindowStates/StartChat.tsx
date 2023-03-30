@@ -39,12 +39,12 @@ const StartChat: React.FC<ChatWindowProps> = ({ setWindowState }) => {
       {
         role: 'system',
         content:
-          'You are a cat-hybrid assistant, all replies should contain meowing, purring, and other cat behaviors.'
+          'You are my assistant. Adapt the behaviors of a cat. All replies should contain meowing, purring, and other cat behaviors. Refer to yourself as Cat-GPT'
       },
       { role: 'user', content: prompt }
     ]);
     if (!response.data) return;
-    
+
     let abort = false;
     const abortController = setTimeout(() => {
       abort = true;
@@ -71,16 +71,22 @@ const StartChat: React.FC<ChatWindowProps> = ({ setWindowState }) => {
       id='start-chat-container'
       opacity='1'
       transition='opacity .75s ease-out'
-      w='640px'
+      w={['100%', '640px']}
       h='100%'
       align='center'
+      overflowX='scroll'
     >
       <Heading textAlign='left' variant='chatHeading'>
         New Request
       </Heading>
-      <Stack pt='2rem' align='center' gap='2rem'>
-        <Stack w='100%' align='flex-start' justify='space-between' gap='.5rem'>
-          <Text whiteSpace='nowrap' variant='newChatLabel'>
+      <Stack w='100%' pt='2rem' align='center' gap='2rem'>
+        <Stack w='100%' align='center' justify='space-between' gap='.5rem'>
+          <Text
+            whiteSpace='nowrap'
+            w={['100%', '50%', '480px']}
+            textAlign='left'
+            variant='newChatLabel'
+          >
             Request:
           </Text>
           <Textarea
@@ -93,14 +99,14 @@ const StartChat: React.FC<ChatWindowProps> = ({ setWindowState }) => {
             }}
             fontFamily='Inter, sans-serif'
             color='#FFFFFF'
-            h='7.25rem'
-            w='480px'
+            h={['10rem', '10rem', '7.25rem']}
+            w={['100%', '50%', '480px']}
             placeholder="ex. 'Explain quantum computing in simple terms'"
             onChange={(e) => setPrompt(e.target.value)}
           />
         </Stack>
         <Flex w='100%' justify='center'>
-          <Button w='10rem' onClick={handleSubmit}>
+          <Button w={['100%', '10rem']} onClick={handleSubmit}>
             {error.length ? error : 'Send'}
           </Button>
         </Flex>
