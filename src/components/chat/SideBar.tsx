@@ -46,7 +46,6 @@ const SideBar: React.FC<ChatWindowProps> = ({ setWindowState }) => {
       if (response && response.remainingTokens) {
         setUserTokens(response.remainingTokens);
       }
-      console.log(response);
     }
   };
 
