@@ -61,7 +61,11 @@ const Login: React.FC<LoginRegisterProps> = ({ setFormState }) => {
       }
       if (response.error) {
         setIsFetching(false);
-        setError(response.error.slice(7));
+        if (response.error == 'Database Error: Check logs') {
+          setError('DB Error: Contact Developer');
+        } else {
+          setError(response.error.slice(7));
+        }
       }
     }
   };
@@ -73,7 +77,7 @@ const Login: React.FC<LoginRegisterProps> = ({ setFormState }) => {
         transition='opacity .75s ease-out'
         boxShadow='0 0 5px #38A3A5'
         py='4rem'
-        px={['0rem','3rem']}
+        px={['0rem', '3rem']}
         align='center'
         borderRadius='5px'
         w={['100%', '100%', '100%', '520px']}
