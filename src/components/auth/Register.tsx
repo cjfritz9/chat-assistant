@@ -67,7 +67,11 @@ const Register: React.FC<LoginRegisterProps> = ({ setFormState }) => {
       }
       if (response.error) {
         setIsFetching(false);
-        setError(response.error.slice(7));
+        if (response.error == 'Database Error: Check logs') {
+          setError('DB Error: Contact Developer');
+        } else {
+          setError(response.error.slice(7));
+        }
       }
     }
   };
