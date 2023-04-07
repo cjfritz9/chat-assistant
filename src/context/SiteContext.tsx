@@ -30,11 +30,6 @@ export class SiteProvider extends React.Component {
     this.setState({ userInfo: info });
   };
 
-  setUserTokens = (tokens: number) => {
-    //@ts-ignore
-    this.state.userInfo.tokens = tokens;
-  };
-
   setIsResponseLoading = (bool: boolean) => {
     this.setState({ isResponseLoading: bool });
   };
@@ -66,7 +61,6 @@ export class SiteProvider extends React.Component {
           setIsLoggedIn: this.setIsLoggedIn,
           setIsLoading: this.setIsLoading,
           setUserInfo: this.setUserInfo,
-          setUserTokens: this.setUserTokens,
           setIsResponseLoading: this.setIsResponseLoading,
           setCurrentRequest: this.setCurrentRequest,
           setCurrentResponse: this.setCurrentResponse,

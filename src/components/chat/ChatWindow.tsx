@@ -10,7 +10,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
   windowState
 }) => {
   return (
-    <Stack flexGrow='1' p={['2.5rem','4rem']} align='center' minW='0'>
+    <Stack flexGrow='1' p={['2.5rem', '4rem']} align='center' minW='0'>
       {windowState === 'start chat' ? (
         <StartChat setWindowState={setWindowState} />
       ) : windowState === 'conversation' ? (

@@ -11,22 +11,21 @@ import {
 } from '@chakra-ui/react';
 import {
   TbCoins,
-  TbQuestionCircle,
+  TbCoffee,
   TbBrandHipchat,
   TbBrandWechat,
   TbPlus,
   TbMenu2,
-  TbX
+  TbX,
+  TbRefresh
 } from 'react-icons/tb';
 import { CgProfile } from 'react-icons/cg';
 import { SiteContext } from '../../context/SiteContext';
-import { useNavigate } from 'react-router-dom';
 import { refreshTokensByUserId } from '../../api';
 import { ChatWindowProps } from '../../models/props';
 
 const SideBar: React.FC<ChatWindowProps> = ({ setWindowState }) => {
-  const { userInfo, setUserTokens, setIsLoggedIn } =
-    useContext<any>(SiteContext);
+  const { userInfo, setUserInfo, setIsLoggedIn } = useContext<any>(SiteContext);
   const [tokenError, setTokenError] = useState('');
   const [showMenu, setShowMenu] = useState(false);
   const [showLogoutConfirmation, setShowLogoutConfirmation] = useState(false);
@@ -43,8 +42,8 @@ const SideBar: React.FC<ChatWindowProps> = ({ setWindowState }) => {
         setTokenError('');
       }, 2500);
     } else {
-      if (response && response.remainingTokens) {
-        setUserTokens(response.remainingTokens);
+      if (response && response.user) {
+        setUserInfo(response.user);
       }
     }
   };
@@ -139,11 +138,20 @@ const SideBar: React.FC<ChatWindowProps> = ({ setWindowState }) => {
                   {tokenError.length ? (
                     <Text>{tokenError}</Text>
                   ) : (
-                    <Text>tokens: {userInfo.tokens}</Text>
+                    <Flex
+                      w='100%'
+                      alignItems='center'
+                      justifyContent='space-between'
+                    >
+                      <Text mr='.5rem'>tokens: {userInfo.tokens}</Text>
+                      <TbRefresh color='white' />
+                    </Flex>
                   )}
                 </Flex>
                 <Flex
                   as={Link}
+                  isExternal
+                  href='https://paypal.me/devcjfritz?country.x=US&locale.x=en_US'
                   _hover={{ bgColor: 'Brand.Agate.99' }}
                   px='1rem'
                   py='.5rem'
@@ -156,10 +164,10 @@ const SideBar: React.FC<ChatWindowProps> = ({ setWindowState }) => {
                   <Icon
                     mr='1rem'
                     color='Brand.AppleGreen.Reg'
-                    as={TbQuestionCircle}
+                    as={TbCoffee}
                     fontSize='20px'
                   />
-                  <Text>about</Text>
+                  <Text>buy me a coffee</Text>
                 </Flex>
               </Stack>
             </Stack>
@@ -169,8 +177,9 @@ const SideBar: React.FC<ChatWindowProps> = ({ setWindowState }) => {
         <Stack
           bgColor='Brand.Agate.Reg'
           h='100dvh'
-          minW={isLessThan900 ? '240px' : '320px'}
-          w='fit-content'
+          // minW={isLessThan900 ? '240px' : '320px'}
+          minW='fit-content'
+          w='320px'
           justify='space-between'
           align='left'
           py='2rem'
@@ -211,7 +220,7 @@ const SideBar: React.FC<ChatWindowProps> = ({ setWindowState }) => {
           </Stack>
           <Stack align='center' w='100%'>
             <Divider mb='1.5rem' w='90%' />
-            <Stack w='90%'>
+            <Stack minW='fit-content' w='90%'>
               <Flex
                 as={Link}
                 _hover={{ bgColor: 'Brand.Agate.99' }}
@@ -260,11 +269,20 @@ const SideBar: React.FC<ChatWindowProps> = ({ setWindowState }) => {
                 {tokenError.length ? (
                   <Text>{tokenError}</Text>
                 ) : (
-                  <Text>tokens: {userInfo.tokens}</Text>
+                  <Flex
+                    w='100%'
+                    alignItems='center'
+                    justifyContent='space-between'
+                  >
+                    <Text mr='.5rem'>tokens: {userInfo.tokens}</Text>
+                    <TbRefresh color='white' />
+                  </Flex>
                 )}
               </Flex>
               <Flex
                 as={Link}
+                isExternal
+                href='https://paypal.me/devcjfritz?country.x=US&locale.x=en_US'
                 _hover={{ bgColor: 'Brand.Agate.99' }}
                 px='1rem'
                 py='.5rem'
@@ -276,10 +294,10 @@ const SideBar: React.FC<ChatWindowProps> = ({ setWindowState }) => {
                 <Icon
                   mr='1rem'
                   color='Brand.AppleGreen.Reg'
-                  as={TbQuestionCircle}
+                  as={TbCoffee}
                   fontSize='18px'
                 />
-                <Text>about</Text>
+                <Text>buy me a coffee</Text>
               </Flex>
             </Stack>
           </Stack>
