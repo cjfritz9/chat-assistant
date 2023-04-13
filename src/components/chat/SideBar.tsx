@@ -49,6 +49,7 @@ const SideBar: React.FC<ChatWindowProps> = ({ setWindowState }) => {
   };
 
   const handleLogout = () => {
+    localStorage.removeItem('user_id');
     setShowLogoutConfirmation(false);
     setIsLoggedIn(false);
   };
