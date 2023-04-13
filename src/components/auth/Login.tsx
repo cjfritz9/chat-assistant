@@ -1,4 +1,4 @@
-import React, { KeyboardEvent, useContext, useState } from 'react';
+import React, { KeyboardEvent, useContext, useState, useEffect } from 'react';
 import {
   Button,
   Container,
@@ -10,7 +10,7 @@ import {
   Text
 } from '@chakra-ui/react';
 import { validateLoginInputs } from '../../utils/helpers';
-import { loginUser } from '../../api';
+import { loginUser, fetchUserById } from '../../api';
 import { LoginRegisterProps } from '../../models/props';
 import { SiteContext } from '../../context/SiteContext';
 import { useNavigate } from 'react-router-dom';
@@ -25,6 +25,7 @@ const Login: React.FC<LoginRegisterProps> = ({ setFormState }) => {
   const navigate = useNavigate();
 
   const handleSuccess = () => {
+    setIsLoggedIn(true);
     setSuccess(true);
     setIsLoading(true);
     setTimeout(() => {
@@ -55,7 +56,6 @@ const Login: React.FC<LoginRegisterProps> = ({ setFormState }) => {
       if (typeof response !== 'string') {
         if (response.email === formData.email) {
           setUserInfo(response);
-          setIsLoggedIn(true);
           handleSuccess();
         }
       }
@@ -69,6 +69,19 @@ const Login: React.FC<LoginRegisterProps> = ({ setFormState }) => {
       }
     }
   };
+
+  useEffect(() => {
+    const userId = localStorage.getItem('user_id');
+    if (userId && userId.length) {
+      const fetchData = async () => {
+        const userData = await fetchUserById(userId);
+        if (userData.error) return;
+        setUserInfo(userData);
+        handleSuccess();
+      };
+      fetchData();
+    }
+  }, []);
 
   return (
     <Container w='100%' h='100%' justifyContent='center' alignItems='center'>

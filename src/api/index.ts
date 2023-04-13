@@ -6,24 +6,23 @@ let BASE_URL: string;
 process.env.NODE_ENV === 'development'
   ? (BASE_URL = 'http://localhost:8080/api/chat-app')
   : (BASE_URL = 'https://open-ai-server.uc.r.appspot.com/api/chat-app');
-  
-  // USER FUNCTIONS
-  export const registerUser = async (userInputs: UserCredentials) => {
-    if (!userInputs.email || !userInputs.password) {
-      return { error: 'Missing email or password' };
-    } else {
-      const response = await axios.post(`${BASE_URL}/users/register`, userInputs);
-      
-      if (response.data.error) {
-        console.log(response.data.error);
-        return response.data;
-      }
-      return response.data.user;
+
+// USER FUNCTIONS
+export const registerUser = async (userInputs: UserCredentials) => {
+  if (!userInputs.email || !userInputs.password) {
+    return { error: 'Missing email or password' };
+  } else {
+    const response = await axios.post(`${BASE_URL}/users/register`, userInputs);
+
+    if (response.data.error) {
+      console.log(response.data.error);
+      return response.data;
     }
-  };
-  
-  
-  export const loginUser = async (userInputs: UserCredentials) => {
+    return response.data.user;
+  }
+};
+
+export const loginUser = async (userInputs: UserCredentials) => {
   if (!userInputs.email || !userInputs.password) {
     return { error: 'Missing email or password' };
   } else {
@@ -37,7 +36,7 @@ process.env.NODE_ENV === 'development'
   }
 };
 
-export const fetchUserById = async (userId: number) => {
+export const fetchUserById = async (userId: string) => {
   if (!userId) {
     return { error: 'Invalid ID Provided' };
   } else {
@@ -93,7 +92,7 @@ export const refreshTokensByUserId = async (userId: number) => {
       console.log(response.data.error);
       return response.data;
     }
-    console.log(response.data)
+    console.log(response.data);
     return response.data;
   }
 };

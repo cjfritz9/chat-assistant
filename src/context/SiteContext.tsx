@@ -28,6 +28,7 @@ export class SiteProvider extends React.Component {
 
   setUserInfo = (info: UserInfo) => {
     this.setState({ userInfo: info });
+    localStorage.setItem('user_id', info.id);
   };
 
   setIsResponseLoading = (bool: boolean) => {
