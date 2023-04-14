@@ -6,7 +6,7 @@
   </a>
 </p>
 
-> cat-gpt is a "for-fun" project to gain experience working with openai's newest chat completion APIs. cat-gpt is intended for personal use and not to replace another AI model, but emulate one with a twist. cat-gpt was made using Google Firestore & Firestore SDK, Express.js & Google App Engine, Mocha & Chai testing frameworks, TypeScript, React, and Chakra-UI. cat-gpt also has source code for the original PostGresQL functions in the event of future database scaling needs.
+> cat-gpt is a "for-fun" project to gain experience working with openai's newest chat completion APIs. cat-gpt is intended for personal use and not to replace another AI model, but emulate one with a twist. cat-gpt was made using Google Firestore & Firestore SDK, Express.js & Google App Engine, Mocha & Chai testing frameworks, TypeScript, React, and Chakra-UI. This project is also containerized with Docker. cat-gpt also has source code for the original PostGresQL functions in the event of future database scaling needs.
 
 ### 🏠 [Homepage](https://cat-gpt3.netlify.app)
 
